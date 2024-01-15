@@ -1,0 +1,22 @@
+﻿@model MongoDbPortfolio.DAL.Entities.Testimonial
+@{
+    ViewData["Title"] = "CreateTestimonial";
+    Layout = "~/Views/AdminUILayout/Index.cshtml";
+}
+<br />
+<br />
+<div class="container">
+    <form method="Post">
+        <label>Adı Soyadı</label>
+        <input type="text" asp-for="NameSurname" class="form-control" />
+        <br />
+        <label>Mesleği</label>
+        <input type="text" asp-for="Title" class="form-control" />
+        <br
+        <label>Açıklaması</label>
+        <input type="text" asp-for="Description" class="form-control" />
+        <br />
+        <button class="btn btn-primary">Ekle </button>
+    </form>
+</div>
+

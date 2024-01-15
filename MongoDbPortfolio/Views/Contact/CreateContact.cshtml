@@ -1,0 +1,23 @@
+﻿@model MongoDbPortfolio.DAL.Entities.Contact
+@{
+    ViewData["Title"] = "CreateContact";
+    Layout = "~/Views/AdminUILayout/Index.cshtml";
+}
+
+<br />
+<br />
+<div class="container">
+    <form method="Post">
+        <label>Adress</label>
+        <input type="text" asp-for="Address" class="form-control" />
+        <br />
+        <label>Telefon Numarası</label>
+        <input type="text" asp-for="Phone" class="form-control" />
+        <br />
+        <label>Email</label>
+        <input type="email" asp-for="Email" class="form-control" />
+        <br />
+        <button class="btn btn-primary">Ekle </button>
+    </form>
+</div>
+

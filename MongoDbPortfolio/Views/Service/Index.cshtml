@@ -1,0 +1,188 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminUILayout/Index.cshtml";
+}
+
+
+
+<style>
+    ::placeholder {
+        color: #FF0000;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+<div class="container">
+    <br />
+    <h3>İşlem Butonları</h3>
+    <button type="button" id="btnservicelist" class="btn btn-outline-primary">Hizmet Listesi</button>
+    <button type="button" id="btnservicecreate" class="btn btn-outline-info">Hizmet Ekle</button>
+    <button type="button" id="btnservicedelete" class="btn btn-outline-danger">Hizmet Sil</button>
+    <button type="button" id="btnserviceget" class="btn btn-outline-dark">Hizmet Getir</button>
+    <button type="button" id="btnserviceupdate" class="btn btn-outline-success">Hizmet Güncelle</button>
+</div>
+
+<br />
+<hr />
+
+<h3>Hizmet Listesi</h3>
+
+<div id="servicelist"></div>
+<hr />
+
+
+<h3>Yeni Hizmet Girişi</h3>
+<div>
+    <input type="text" class="form-control" placeholder="Hizmet Adı" id="txtname" style="border:1px solid black" />
+    <br />
+    <input type="text" class="form-control" placeholder="Hizmet ücreti" id="txtsurname" style="border:1px solid black" />
+    <br />
+    <input type="text" class="form-control" placeholder="Hizmet açıklaması" id="txtsalary" style="border:1px solid black" />
+    <br />
+</div>
+
+
+<hr />
+<h3>Hizmet Getirme Alanı</h3>
+<input type="text" class="form-control" placeholder="Hizmet" id="txtserviceid" style="border:1px solid black" />
+
+<div id="servicelistbyid">
+</div>
+
+<hr />
+
+<div>
+    <h3>Hizmet Silme Alanı</h3>
+    <input type="text" class="form-control" placeholder="Sil" id="txtDeletedemployeid" style="border:1px solid black" />
+
+</div>
+<hr />
+
+<div>
+    <h3>
+        Hizmet Güncelleme Sayfası
+    </h3>
+    <input type="text" class="form-control" placeholder="Hizmet Adı" id="txtidedit" style="border: 1px solid black;" />
+
+    <br />
+    <input type="text" class="form-control" placeholder="Hizmet Adı" id="txtnameedit" style="border:1px solid black" />
+    <br />
+    <input type="text" class="form-control" placeholder="Hizmet ücreti" id="txtsurnameedit" style="border:1px solid black" />
+    <br />
+    <input type="text" class="form-control" placeholder="Hizmet açıklaması" id="txtsalaryedit" style="border:1px solid black" />
+    <br />
+
+</div>
+<script>
+    $("#btnservicecreate").click(function () {
+        let servicevalues = {
+            ServiceTitle: $("#txtname").val(),
+            ServicePrice: $("#txtsurname").val(),
+            Description: $("#txtsalary").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: "/Service/CreateService/",
+            data: servicevalues,
+            success: function (funk2) {
+                let result = jQuery.parseJSON(funk2);
+                alert("Hizmet EKLENDİ");
+
+                // Hizmet listesini güncelle
+                $("#btnservicelist").click();
+            }
+        });
+    });
+
+    $("#btnservicelist").click(function () {
+        $.ajax({
+            contentType: "application/json",
+            dataType: "json",
+            type: "GET",
+            url: "/Service/ServiceList/",
+            success: function (funk1) {
+                let values = JSON.parse(funk1);
+                console.log(values);
+                let tablehtml = `<table class="table table-bordered">
+                                    <tr>
+                                    <th>Hizmet ID</th>
+                                    <th>Hizmet Adı</th>
+                                    <th>Hizmet Soyadı</th>
+                                    <th>Hizmet Maaş</th>
+                                    </tr>`;
+                $.each(values, (index, value) => {
+                    tablehtml += `<tr>
+                                         <td>${value.ServiceId}</td>
+                                             <td>${value.ServiceTitle}</td>
+                                             <td>${value.ServicePrice}</td>
+                                             <td>${value.Description}</td>
+                                     </tr>`;
+                });
+                tablehtml += `</table>`;
+                $("#servicelist").html(tablehtml);
+            }
+        });
+    });
+    $("#btnserviceget").click(function () {
+        let id = $("#txtserviceid").val();
+
+        $.ajax({
+            contentType: "application/json",
+            dataType: "json",
+            url: "/service/Getservice",
+            data: { serviceId: id },
+            success: function (funk3) {
+                let result = jQuery.parseJSON(funk3);
+                console.log(result);
+                let htmlstr = `<table class="table table-hover">
+                            <tr>
+                            <th>Hizmet ID</th>
+                            <th>Hizmet Adı</th>
+                            <th>Hizmet Soyadı</th>
+                            <th>Hizmet Maaşı</th>
+                            </tr>
+                            <tr>
+                            <td>${result.EmployeID}</td>
+                                <td>${result.EmployeName}</td>
+                                <td>${result.EmployeSurname}</td>
+                                <td>${result.EmployeSurname}</td>
+                            </tr>
+                            </table>`;
+                $("#servicelistbyid").html(htmlstr);
+            }
+        });
+    });
+    $("#btnservicedelete").click(function () {
+        let id = $("#txtDeletedemployeid").val();
+
+        $.ajax({
+            url: "/service/Deleteservice/" + id,
+            type: "Get",
+            contentType: "application/json",
+            success: function (funk4) {
+                swal("Hizmet Başarıyla Silindi");
+            }
+        });
+    });
+    $("#btnserviceupdate").click(function () {
+        let values = {
+            EmployeID: $("#txtidedit").val(),
+            EmployeName: $("#txtnameedit").val(),
+            EmployeSurname: $("#txtsurnameedit").val(),
+            serviceSalary: $("#txtsalaryedit").val()
+        };
+
+        $.ajax({
+            url: "/service/Updateservice/",
+            type: "post",
+            data: values,
+            success: function (funk5) {
+                swal("başarıyla güncellendi");
+            }
+        });
+    });
+
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

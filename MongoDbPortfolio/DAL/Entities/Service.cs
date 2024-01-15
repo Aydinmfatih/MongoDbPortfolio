@@ -8,7 +8,7 @@ namespace MongoDbPortfolio.DAL.Entities
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string ServiceId { get; set; }
-        public string ServideTitle { get; set; }
+        public string ServiceTitle { get; set; }
         public decimal ServicePrice { get; set; }
         public string Description { get; set; }
     }
