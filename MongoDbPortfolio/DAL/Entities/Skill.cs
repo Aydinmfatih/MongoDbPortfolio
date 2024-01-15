@@ -9,7 +9,6 @@ namespace MongoDbPortfolio.DAL.Entities
         [BsonRepresentation(BsonType.ObjectId)]
         public string SkillId{ get; set; }
         public string Title { get; set; }
-        public string SkillTitle { get; set; }
         public int Percent { get; set; }
         public string BarColor { get; set; }
     }

@@ -1,28 +1,15 @@
-﻿<div id="tab-1" class="tab-pane fade show p-0 active">
+﻿@model List<MongoDbPortfolio.DAL.Entities.Experience>
+<div id="tab-1" class="tab-pane fade show p-0 active">
     <div class="row gy-5 gx-4">
-        <div class="col-sm-6">
-            <h5>UI Designer</h5>
-            <hr class="text-primary my-2">
-            <p class="text-primary mb-1">2000 - 2045</p>
-            <h6 class="mb-0">Apex Software Inc</h6>
-        </div>
-        <div class="col-sm-6">
-            <h5>Product Designer</h5>
-            <hr class="text-primary my-2">
-            <p class="text-primary mb-1">2000 - 2045</p>
-            <h6 class="mb-0">Apex Software Inc</h6>
-        </div>
-        <div class="col-sm-6">
-            <h5>Web Designer</h5>
-            <hr class="text-primary my-2">
-            <p class="text-primary mb-1">2000 - 2045</p>
-            <h6 class="mb-0">Apex Software Inc</h6>
-        </div>
-        <div class="col-sm-6">
-            <h5>Apps Designer</h5>
-            <hr class="text-primary my-2">
-            <p class="text-primary mb-1">2000 - 2045</p>
-            <h6 class="mb-0">Apex Software Inc</h6>
-        </div>
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-6">
+                <h5>@item.Title</h5>
+                <hr class="text-primary my-2">
+                <p class="text-primary mb-1">@item.StartYear</p>
+                <h6 class="mb-0">@item.CompanyName</h6>
+            </div>
+        }
+
     </div>
 </div>

@@ -15,7 +15,7 @@ namespace MongoDbPortfolio.ViewComponents
             var database = client.GetDatabase(_databaseSettings.DatabaseName);
             _aboutCollection = database.GetCollection<About>(_databaseSettings.AboutCollectionName);
         }
-        public async Task<IViewComponentResult> Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
             var values = await _aboutCollection.Find(x => true).ToListAsync();
             return View(values);

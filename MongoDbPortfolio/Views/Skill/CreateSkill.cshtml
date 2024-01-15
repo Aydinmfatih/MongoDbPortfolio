@@ -1,0 +1,24 @@
+﻿@model MongoDbPortfolio.DAL.Entities.Skill
+@{
+    ViewData["Title"] = "CreateSkill";
+    Layout = "~/Views/AdminUILayout/Index.cshtml";
+}
+
+<br />
+<br />
+<div class="container">
+    <form method="Post">
+        <label>Yetenek Adı</label>
+        <input type="text" asp-for="Title" class="form-control" />
+        <br />
+        <label>Yüzdelik</label>
+        <input type="text" asp-for="Percent" class="form-control" />
+        <br />
+        <label>Renk kodu </label>
+        <input type="text" asp-for="BarColor" class="form-control" />
+        <br />
+        <button class="btn btn-primary">Ekle </button>
+    </form>
+</div>
+
+

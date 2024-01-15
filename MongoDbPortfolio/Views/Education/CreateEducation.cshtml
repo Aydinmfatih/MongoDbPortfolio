@@ -1,0 +1,23 @@
+﻿@model MongoDbPortfolio.DAL.Entities.Education
+@{
+    ViewData["Title"] = "CreateEducation";
+    Layout = "~/Views/AdminUILayout/Index.cshtml";
+}
+
+<br />
+<br />
+<div class="container">
+    <form method="Post">
+        <label>Eğitim İsmi</label>
+        <input type="text" asp-for="Title" class="form-control" />
+        <br />
+        <label>Tarih Aralığı</label>
+        <input type="text" asp-for="StartYear" class="form-control" />
+        <br />
+        <label>Eğitim Yeri</label>
+        <input type="text" asp-for="EducationName" class="form-control" />
+        <br />
+        <button class="btn btn-primary">Ekle </button>
+    </form>
+</div>
+

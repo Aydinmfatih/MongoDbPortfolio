@@ -10,6 +10,6 @@ namespace MongoDbPortfolio.DAL.Entities
         public string ExperienceId { get; set; }
         public string Title { get; set; }
         public string StartYear { get; set; }
-        public string ComponyName { get; set; }
+        public string CompanyName { get; set; }
     }
 }

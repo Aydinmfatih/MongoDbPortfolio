@@ -1,0 +1,37 @@
+﻿@model List<MongoDbPortfolio.DAL.Entities.Experience>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminUILayout/Index.cshtml";
+}
+
+
+<br />
+<br />
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>#</th>
+            <th>Tecrübe</th>
+            <th>Tarih Aralığı</th>
+            <th>Şirket ismi</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@item.ExperienceId</td>
+                <td>@item.Title</td>
+                <td>@item.StartYear</td>
+                <td>@item.CompanyName</td>
+                <td><a href="/Experience/DeleteExperience/@item.ExperienceId" class="btn btn-outline-danger">Sil</a></td>
+                <td><a href="/Experience/UpdateExperience/@item.ExperienceId" class="btn btn-outline-success">Güncelle</a></td>
+            </tr>
+        }
+    </table>
+    <a href="/Experience/CreateExperience" class="btn btn-primary">Yeni Tecrübe Girişi</a>
+</div>
+
+

@@ -1,0 +1,38 @@
+﻿@model List<MongoDbPortfolio.DAL.Entities.Education>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminUILayout/Index.cshtml";
+}
+
+<br />
+<br />
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>#</th>
+            <th>Eğitim Başlığı</th>
+            <th>Tarih Aralığı</th>
+            <th>Eğitim ismi</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@item.EducationId</td>
+                <td>@item.Title</td>
+                <td>@item.StartYear</td>
+                <td>@item.EducationName</td>
+                <td><a href="/Education/DeleteEducation/@item.EducationId" class="btn btn-outline-danger">Sil</a></td>
+                <td><a href="/Education/UpdateEducation/@item.EducationId" class="btn btn-outline-success">Güncelle</a></td>
+            </tr>
+        }
+    </table>
+    <a href="/Education/CreateEducation" class="btn btn-primary">Yeni Eğitim Girişi</a>
+</div>
+
+
+
+
