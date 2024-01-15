@@ -13,20 +13,45 @@ namespace MongoDbPortfolio.Controllers
         {
             var client = new MongoClient(_databaseSettings.ConnectionString);
             var database = client.GetDatabase(_databaseSettings.DatabaseName);
-            _aboutCollection = database.GetCollection<About>(_databaseSettings.AboutCollectionName)
+            _aboutCollection = database.GetCollection<About>(_databaseSettings.AboutCollectionName);
         }
 
         public async Task<IActionResult> Index()
         {
             var values = await _aboutCollection.Find(x=>true).ToListAsync();
-            return View();
+            return View(values);
         }
 
         [HttpGet]
-        public async Task<IActionResult> CreateAbout()
+        public  IActionResult CreateAbout()
         {
-            var values = await _aboutCollection.
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAbout(About about)
+        {
+            await _aboutCollection.InsertOneAsync(about);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> DeleteAbout(string id)
+        {
+            var value = await _aboutCollection.DeleteOneAsync(x => x.AboutId == id);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> UpdateAbout(string id)
+        {
+            var value = await _aboutCollection.Find(x=>x.AboutId == id).FirstOrDefaultAsync();
+            return View(value);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateAbout(About about)
+        {
+            var value = await _aboutCollection.FindOneAndReplaceAsync(x => x.AboutId == about.AboutId, about);
+            return RedirectToAction("Index");
+        }
+
     }
 }

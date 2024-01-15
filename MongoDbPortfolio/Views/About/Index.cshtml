@@ -1,8 +1,33 @@
-﻿
+﻿@model List<MongoDbPortfolio.DAL.Entities.About>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminUILayout/Index.cshtml";
 }
 
-<h1>Index</h1>
+<br />
+<br />
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>#</th>
+            <th>İsim Soyisim</th>
+            <th>Mesleği</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+          
+            <tr>
+                <td>@item.AboutId</td>
+                <td>@item.NameSurname</td>
+                <td>@item.Title</td>
+                <td><a href="/About/DeleteAbout/@item.AboutId" class="btn btn-outline-danger">Sil</a></td>
+                <td><a href="/About/UpdateAbout/@item.AboutId" class="btn btn-outline-success">Güncelle</a></td>
+            </tr>
+        }
+    </table>
+    <a href="/About/CreateAbout" class="btn btn-primary">Yeni Hakkımda Girişi</a>
+</div>
 
